@@ -3,20 +3,23 @@ import Button from 'react-bootstrap/Button'
 import React, {useState, useEffect} from 'react'
 import Alert from 'react-bootstrap/Alert'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 
-const userid = 4 // Statinis userio ID
+// const userid = 4 // Statinis userio ID
 
 export default ()=>{
 
     const [profileForm, setProfileForm] = useState({
-        headline:'',
-        subheadline: '',
-        description: '',
-        hourly_rate: 5,
-        location: ''
+        name:'',
+        surname: '',
+        specialization: '',
+        profile_image: '',
+        service_name: '',
+        city: '',
+        likes: 0
     })
 
+    const { id } = useParams()
     const [messages, setMessages] = useState({message: '', status: ''})
     const navigate = useNavigate()
 
@@ -25,6 +28,10 @@ export default ()=>{
             ...profileForm,
             [e.target.name]:e.target.value
         })
+    }
+
+    const handleFileChange =(e) =>{
+        setProfileForm({...profileForm, [e.target.name]: e.target.files[0]})
     }
 
     const handleValidation = () =>{
@@ -45,15 +52,15 @@ export default ()=>{
             return false
         }
 
-        profileForm.UserId = userid
+        // profileForm.UserId = userid
 
         axios.put('/api/profile/update/', profileForm)
         .then(resp => {
             setMessages({message: resp.data.message, status: resp.data.status})
             if(resp.data.status === 'success'){
                 setTimeout( ()=> {
-                    navigate('/')
-                }, 2000)
+                    navigate('/admin-panel')
+                }, 1000)
             }
         })
         .catch(()=>{
@@ -62,16 +69,18 @@ export default ()=>{
     }
 
     useEffect(()=>{
-        axios.get('/api/profile/edit/' + userid)
+        axios.get('/api/profile/single/' + id)
         .then(resp => {
             const message = resp.data.message
             if(resp.data.status === 'success'){
                 setProfileForm({
-                    headline: message.headline,
-                    subheadline: message.subheadline,
-                    description: message.description,
-                    hourly_rate: message.hourly_rate,
-                    location: message.location
+                    name: message.name,
+                    surname: message.surname,
+                    specialization: message.specialization,
+                    profile_image: message.profile_image,
+                    service_name: message.service_name,
+                    city: message.city,
+                    likes: message.likes
                 })
             }else{
                 setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
@@ -85,32 +94,37 @@ export default ()=>{
     return(
     <Container>
         <div className="profileCreate">
-            <h1>Profilio redagavimas</h1>
+            <h1>Meistro profilio redagavimas</h1>
             {messages.message && (
                 <Alert variant={messages.status}>{messages.message}</Alert>
             )}
             <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label">Antraštė</label>
-                <input type="text" name="headline" className="form-control" placeholder="Nuostabus programuotojas" value={profileForm.headline} onChange={(e)=>handleInputChange(e)}/>
+                <label className="form-label">Meistro vardas</label>
+                {/* <textarea className="form-control" name="description" rows="6" value={profileForm.description} onChange={(e)=>handleInputChange(e)}></textarea> */}
+                <input type="text" name="name" className="form-control" value={profileForm.name} onChange={(e)=>handleInputChange(e)} />
             </div>
             <div className="mb-3">
-                <label className="form-label">Poraštė</label>
-                <input type="text" name="subheadline" className="form-control" placeholder="Dešimt metų darbo praktikos" value={profileForm.subheadline} onChange={(e)=>handleInputChange(e)} />
+                <label className="form-label">Meistro pavardė</label>
+                <input type="text" name="surname" className="form-control" value={profileForm.surname} onChange={(e)=>handleInputChange(e)} />
             </div>
             <div className="mb-3">
-                <label className="form-label">Prisistatymas</label>
-                <textarea className="form-control" name="description" rows="3" value={profileForm.description} onChange={(e)=>handleInputChange(e)}></textarea>
+                <label className="form-label">Specializacija</label>
+                <input type="text" name="specialization" className="form-control" value={profileForm.specialization} onChange={(e)=>handleInputChange(e)} />
             </div>
             <div className="mb-3">
-                <label className="form-label">Valandinis įkainis</label>
-                <input type="number" name="hourly_rate" className="form-control" min="0" value={profileForm.hourly_rate} onChange={(e)=>handleInputChange(e)} />
+                <label className="form-label">Meistro nuotrauka</label>
+                <input type="file" className="form-control" name="profile_image" onChange={(e)=>handleFileChange(e)}/>
             </div>
             <div className="mb-3">
-                <label className="form-label">Vieta</label>
-                <input type="text" name="location" className="form-control" placeholder="Kaunas, Lietuva"  value={profileForm.location} onChange={(e)=>handleInputChange(e)}/>
+                <label className="form-label">Serviso pavadinimas</label>
+                <input type="text" name="service_name" className="form-control" value={profileForm.service_name} onChange={(e)=>handleInputChange(e)} />
             </div>
-            <Button type="submit" variant="primary">Redaguoti profilį</Button>
+            <div className="mb-3">
+                <label className="form-label">Miestas</label>
+                <input type="text" name="city" className="form-control" value={profileForm.city} onChange={(e)=>handleInputChange(e)} />
+            </div>
+            <Button type="submit" variant="primary">Redaguoti meistro profilį</Button>
             </form>
         </div>
     </Container>

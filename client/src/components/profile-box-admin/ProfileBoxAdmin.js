@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from "axios"
-import {Link} from 'react-router-dom'
+import {Link, Navigate, useNavigate} from 'react-router-dom'
 
 export default (props) =>{
     const date = new Date(props.profile.createdAt)
+
+    const navigate = useNavigate()
 
     const handleApprove = async () => {
         const form = props.profile;
@@ -46,6 +48,10 @@ export default (props) =>{
         })
     }
 
+    const handleEdit = () => {
+        navigate(`/edit/${props.profile.id}`)
+    }
+
     return(
         <div className="col">
             <div className="card shadow-sm">
@@ -64,12 +70,12 @@ export default (props) =>{
                     <p className="card-text h5 text-center">{props.profile.city}</p>
                     <p className="card-text h5 d-flex justify-content-end">Patinka: {props.profile.likes}</p>
                     <div className='d-flex justify-content-end'>
+                        <button className='btn btn-info m-2' onClick={handleEdit}>Redaguoti</button>
                         <button className='btn btn-danger m-2' onClick={handleDelete}>Ištrinti</button>
                     </div>
                     <div className="d-flex justify-content-end align-items-center">
                         <small className="text-muted">{date.toLocaleDateString('lt-LT')}</small>
                     </div>
-                    {/* <p className="card-text h5">{(props.profile.approved)? "Patvirtintas" : "Nepatvirtintas"}</p> */}
                     {/* <button className='btn btn-info m-2' onClick={handleApprove}>Patvirtinti</button> */}
                     
                 </div>

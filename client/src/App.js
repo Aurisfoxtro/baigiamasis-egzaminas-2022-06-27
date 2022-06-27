@@ -49,6 +49,7 @@ function App() {
         {/* {isLoggedIn && (<Route path="/edit" element={<ProfileEdit />} />)} */}
         {isLoggedIn && (<Route path="/admin-panel" element={<ProfileListAdmin />} />)}
         {isLoggedIn && (<Route path="/services" element={<ServiceListAdmin />} />)}
+        {isLoggedIn && (<Route path="/edit/:id" element={<ProfileEdit/>} />)}
       </Routes>
     </Router>
   );

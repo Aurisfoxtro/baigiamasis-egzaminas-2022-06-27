@@ -6,7 +6,7 @@ import validator from '../middleware/validator.js'
 import auth from '../middleware/authentication.js'
 import { exists, insert, getAll, getById, getByUserId, update, getApproved, remove, insertDonation } from '../service/profile.js'
 // import {insert as portfolioInsert, getAll as portfolioItems} from '../service/portfolio.js'
-import {insert as portfolioInsert, getAll as profileHistory} from '../service/donations.js'
+// import {insert as portfolioInsert, getAll as profileHistory} from '../service/donations.js'
 import {Op} from 'sequelize'
 
 const Router = express.Router()
@@ -128,12 +128,14 @@ Router.get('/sort/desc', async(req,res)=>{
     }
 })
 
-Router.get('/filter/hourly_rate/:rate', async(req,res)=>{
-    const rate = req.params.rate
+Router.get('/filter/specialization/:specialization', async(req,res)=>{
+    const specialization = req.params.specialization
+    const like_string = '%' + specialization + '%'
     const profiles = await getAll({
         where: {
-            hourly_rate: {
-                [Op.gte]: rate
+            specialization:
+            {
+                [Op.like]: like_string
             }
         }
     })
@@ -148,9 +150,9 @@ Router.get('/single/:id', async (req, res)=>{
     const id = req.params.id
     const profile = await getById(id)
     if(profile){
-        const portfolio = await portfolioItems(profile.id)
-        if(portfolio)
-            profile.portfolio = portfolio[0].dataValues
+        // const portfolio = await portfolioItems(profile.id)
+        // if(portfolio)
+        //     profile.portfolio = portfolio[0].dataValues
         res.json({message: profile, status: 'success'})
     }else{
         res.json({message: 'Įvyko klaida', status: 'danger'})
@@ -282,14 +284,17 @@ Router.delete('/delete/:id', async (req, res)=>{
 })
 
 Router.put('/update/', auth, profileSchema, async (req, res)=>{
-    const user_id = req.body.UserId  //Paimame userio id is perduodamos informacijos
-    const profile = await getByUserId(user_id) //susirandam profilio informacija pagal userio id
+    // const user_id = req.body.UserId  //Paimame userio id is perduodamos informacijos
+    const id = req.body.id
+    // const profile = await getById(id) //susirandam profilio informacija pagal userio id
 
-    if(await update(profile.id, req.body)){
+    if(await update(id, req.body)){
         res.json({message: 'Profilis sėkmingai atnaujintas', status: 'success'})
     }else{
         res.json({message: 'Įvyko klaida', status: 'danger'})
     }
 })
+
+
 
 export default Router

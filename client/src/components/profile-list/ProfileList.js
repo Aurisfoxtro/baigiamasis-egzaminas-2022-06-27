@@ -8,7 +8,7 @@ import ProfileBox from '../profile-box/ProfileBox.js'
 export default () => {
 
     const [profiles, setProfiles] = useState([])
-    const [filter, setFilter] = useState(0)
+    const [filter, setFilter] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [messages, setMessages] = useState({message: "", status: ""})
 
@@ -78,21 +78,19 @@ export default () => {
         return(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pt-5">
              <List />
-             {/* <ListAbove />
-             <ListBelow /> */}
              </div>
         )
     }
 
-    // const Filter = () => {
-    //     return(
-    //     <div className="Filter">
-    //         <label>Filtravimas pagal valandinį įkainį:</label>
-    //         <input type="number" min="0" value={filter} onChange={e=> handleFilterChange(e)}/>
-    //         <button onClick={handleFilter}>Filtruoti</button>
-    //     </div>
-    //     )
-    // }
+    const Filter = () => {
+        return(
+        <div className="Filter">
+            <label>Filtravimas pagal specializaciją:</label>
+            <input type="text" value={filter} onChange={e=> handleFilterChange(e)}/>
+            <button onClick={handleFilter}>Filtruoti</button>
+        </div>
+        )
+    }
 
     const handleFilterChange = (e)=>{
         setFilter(e.target.value)
@@ -100,7 +98,7 @@ export default () => {
 
     const handleFilter = () =>{
         setIsLoading(true)
-        axios.get('/api/profile/filter/hourly_rate/' + filter)
+        axios.get('/api/profile/filter/specialization/' + filter)
         .then(resp => {
             setIsLoading(false)
 
@@ -120,12 +118,12 @@ export default () => {
              'Duomenys kraunasi...':(
                  <>
                     {/* <Filter /> */}
-                    {/* <div className="Filter">
-                        <label>Filtravimas pagal valandinį įkainį:</label>
-                        <input type="number" min="0" value={filter} onChange={e=> handleFilterChange(e)}/>
-                        <button onClick={handleFilter}>Filtruoti</button>
+                    <div className="Filter row d-flex justify-content-center">
+                        <label>Filtravimas pagal specializaciją:</label>
+                        <input className="form-control col-3" type="text" value={filter} onChange={e=> handleFilterChange(e)}/>
+                        <button className="btn btn-info col-3" onClick={handleFilter}>Filtruoti</button>
                     </div>
-                    <div className="sorting">
+                    {/* <div className="sorting">
                         <button className="btn btn-primary mt-3" onClick={sortAscending}>Didėjančia tvarka</button>
                         <button className="btn btn-primary mt-3" onClick={sortDescending}>Mažėjančia tvarka</button>
                     </div> */}

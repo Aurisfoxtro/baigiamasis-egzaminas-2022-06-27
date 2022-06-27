@@ -16,12 +16,12 @@ export default (props)=>{
                         <li className="nav-item">
                             <Link className="nav-link" to="/">Titulinis</Link>
                         </li>
-                        {props.show && (
+                        {props.loggedIn === false && (
                         <li className="nav-item">
                             <Link className="nav-link" to="/login">Prisijungti</Link>
                         </li>
                         )}
-                        {props.show && (
+                        {props.loggedIn === false && (
                         <li className="nav-item">
                             <Link className="nav-link" to="/registration">Registracija</Link>
                             </li>
