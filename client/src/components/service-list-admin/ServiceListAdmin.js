@@ -2,58 +2,60 @@ import React, { useState, useEffect } from "react"
 import axios from 'axios'
 import Container from 'react-bootstrap/Container'
 import Alert from 'react-bootstrap/Alert'
-import ProfileBoxAdmin from '../profile-box-admin/ProfileBoxAdmin.js'
+import ServiceBoxAdmin from '../service-box-admin/ServiceBoxAdmin.js'
 
 export default () => {
 
-    const [profiles, setProfiles] = useState([])
-    const [filter, setFilter] = useState(0)
+    const [services, setServices] = useState([])
+    // const [filter, setFilter] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
     const [messages, setMessages] = useState({message: "", status: ""})
 
     useEffect(()=>{
-    axios.get('/api/profile/')
+    axios.get('/api/services/')
         .then(resp => {
             setIsLoading(false)
 
             if(resp.data.status === 'success')
-                setProfiles(resp.data.message)
+                setServices(resp.data.message)
         })
         .catch(()=>{
             setIsLoading(false)
             // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
         })
     }, [])
-    const sortAscending = ()=>{
-        axios.get('/api/profile/sort/asc')
-        .then(resp => {
-            setIsLoading(false)
 
-            if(resp.data.status === 'success')
-                setProfiles(resp.data.message)
-        })
-        .catch(()=>{
-            setIsLoading(false)
-            // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
-        })
-    }
+    // const sortAscending = ()=>{
+    //     axios.get('/api/profile/sort/asc')
+    //     .then(resp => {
+    //         setIsLoading(false)
 
-    const sortDescending = () => {
-        axios.get('/api/profile/sort/desc')
-        .then(resp => {
-            setIsLoading(false)
+    //         if(resp.data.status === 'success')
+    //             setProfiles(resp.data.message)
+    //     })
+    //     .catch(()=>{
+    //         setIsLoading(false)
+    //         // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
+    //     })
+    // }
 
-            if(resp.data.status === 'success')
-                setProfiles(resp.data.message)
-        })
-        .catch(()=>{
-            setIsLoading(false)
-            // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
-        })
-    }
+    // const sortDescending = () => {
+    //     axios.get('/api/profile/sort/desc')
+    //     .then(resp => {
+    //         setIsLoading(false)
+
+    //         if(resp.data.status === 'success')
+    //             setProfiles(resp.data.message)
+    //     })
+    //     .catch(()=>{
+    //         setIsLoading(false)
+    //         // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
+    //     })
+    // }
+
     const List = () => {
-        return profiles.map((value, index)=>(
-            <ProfileBoxAdmin key={index} setMessages={setMessages} profile={value}/>
+        return services.map((value, index)=>(
+            <ServiceBoxAdmin key={index} setMessages={setMessages} service={value}/>
         ))
     }
 
@@ -75,28 +77,28 @@ export default () => {
     //     )
     // }
 
-    const handleFilterChange = (e)=>{
-        setFilter(e.target.value)
-    }
+    // const handleFilterChange = (e)=>{
+    //     setFilter(e.target.value)
+    // }
 
-    const handleFilter = () =>{
-        setIsLoading(true)
-        axios.get('/api/profile/filter/hourly_rate/' + filter)
-        .then(resp => {
-            setIsLoading(false)
+    // const handleFilter = () =>{
+    //     setIsLoading(true)
+    //     axios.get('/api/profile/filter/hourly_rate/' + filter)
+    //     .then(resp => {
+    //         setIsLoading(false)
 
-            if(resp.data.status === 'success')
-                setProfiles(resp.data.message)
-        })
-        .catch(()=>{
-            setIsLoading(false)
-            // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
-        })
-    }
+    //         if(resp.data.status === 'success')
+    //             setProfiles(resp.data.message)
+    //     })
+    //     .catch(()=>{
+    //         setIsLoading(false)
+    //         // setMessages({message: 'Įvyko serverio klaida', status: 'danger'})
+    //     })
+    // }
 
     return(
         <Container>
-            <h1>Meistrų sąrašas:</h1>
+            <h1>Servisų sąrašas:</h1>
             {isLoading ?
              'Duomenys kraunasi...':(
                  <>

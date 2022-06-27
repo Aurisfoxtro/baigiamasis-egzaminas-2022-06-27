@@ -2,6 +2,7 @@ import express from 'express'
 import database from './database/connection.js'
 import users from './controller/users.js'
 import profile from './controller/profile.js'
+import services from './controller/services.js'
 import cookieParser from 'cookie-parser'
 import auth from './middleware/authentication.js'
 import {dirname} from 'path'
@@ -26,6 +27,7 @@ app.use('/uploads', express.static('uploads'))
 app.use('/', express.static('public'))
 app.use('/api/users/', users)
 app.use('/api/profile/', profile)
+app.use('/api/services/', services)
 
 app.get('/', (req, res)=>{
   res.sendFile(__dirname + '/public/index.html')

@@ -26,9 +26,16 @@ export default (props)=>{
                             <Link className="nav-link" to="/registration">Registracija</Link>
                             </li>
                         )}
+                        {props.loggedIn && (
                         <li className="nav-item">
-                            <Link className="nav-link" to="/create-profile">Sukurti labdaros profilį</Link>
+                            <Link className="nav-link" to="/create-profile">Sukurti meistro profilį</Link>
                             </li>
+                        )}
+                        {props.loggedIn && (
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/create-service">Sukurti serviso profilį</Link>
+                            </li>
+                        )}
                         {/* {props.loggedIn && (
                         <li className="nav-item">
                             <Link className="nav-link" to="/edit">Redaguoti profilį</Link>
@@ -36,7 +43,12 @@ export default (props)=>{
                         )} */}
                         {props.loggedIn && (
                         <li className="nav-item">
-                            <Link className='nav-link' to="/admin-panel">Administratoriaus panelė</Link>
+                            <Link className='nav-link' to="/admin-panel">Meistrų sąrašas</Link>
+                        </li>
+                        )}
+                         {props.loggedIn && (
+                        <li className="nav-item">
+                            <Link className='nav-link' to="/services">Servisų sąrašas</Link>
                         </li>
                         )}
                     </ul>

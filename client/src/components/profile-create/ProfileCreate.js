@@ -64,7 +64,7 @@ export default ()=>{
             // console.log(resp.data)
             if(resp.data.status === 'success'){
                 setTimeout( ()=> {
-                    navigate('/')
+                    navigate('/admin-panel')
                 }, 2000)
             }else{
                 setMessages({message: resp.data.message, status: resp.data.status})

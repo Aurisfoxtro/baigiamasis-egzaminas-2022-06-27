@@ -10,9 +10,10 @@ export default () => {
     const [profiles, setProfiles] = useState([])
     const [filter, setFilter] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
+    const [messages, setMessages] = useState({message: "", status: ""})
 
     useEffect(()=>{
-    axios.get('/api/profile/approved')
+    axios.get('/api/profile/')
         .then(resp => {
             setIsLoading(false)
 
@@ -53,7 +54,7 @@ export default () => {
     }
     const List = () => {
         return profiles.map((value, index)=>(
-            <ProfileBox key={index} profile={value}/>
+            <ProfileBox key={index} setMessages={setMessages} profile={value}/>
         ))
     }
 
@@ -68,7 +69,7 @@ export default () => {
     const ListBelow = () => {
         return profiles.map((value, index)=>{
             if(value.success === 1){
-                return <ProfileBox key={index} profile={value}/>
+                return <ProfileBox key={index} setMessages={setMessages} profile={value}/>
             }
         })
     }
@@ -76,9 +77,9 @@ export default () => {
     const ListContainer = () =>{
         return(
             <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 pt-5">
-             {/* <List /> */}
-             <ListAbove />
-             <ListBelow />
+             <List />
+             {/* <ListAbove />
+             <ListBelow /> */}
              </div>
         )
     }
@@ -114,7 +115,7 @@ export default () => {
 
     return(
         <Container>
-            <h1>Labdaringos idėjos ieško jūsų paramos:</h1>
+            <h1>Meistrų sąrašas:</h1>
             {isLoading ?
              'Duomenys kraunasi...':(
                  <>

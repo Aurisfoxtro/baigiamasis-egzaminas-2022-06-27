@@ -35,7 +35,7 @@ export default (props) =>{
                 })
                 setTimeout(()=>{
                     window.location.reload()
-                }, 2000)
+                }, 1000)
                 }
             })
         .catch(()=>{
@@ -56,14 +56,22 @@ export default (props) =>{
                 />
                 {/* </Link> */}
                 <div className="card-body">
-                    <p className="card-text h5">{props.profile.description}</p>
-                    <h3>Tikslo suma: {props.profile.target_sum} Eur</h3>
-                    <div className="d-flex justify-content-between align-items-center">
+                <p className="card-text h3 text-center">{props.profile.name}</p>
+                    <p className="card-text h3 text-center">{props.profile.surname}</p>
+                    <p className="card-text h4 text-center">Specializacija:</p>
+                    <p className="card-text h4 text-center">{props.profile.specialization}</p>
+                    <p className="card-text h5 text-center">Servisas: {props.profile.service_name}</p>
+                    <p className="card-text h5 text-center">{props.profile.city}</p>
+                    <p className="card-text h5 d-flex justify-content-end">Patinka: {props.profile.likes}</p>
+                    <div className='d-flex justify-content-end'>
+                        <button className='btn btn-danger m-2' onClick={handleDelete}>Ištrinti</button>
+                    </div>
+                    <div className="d-flex justify-content-end align-items-center">
                         <small className="text-muted">{date.toLocaleDateString('lt-LT')}</small>
                     </div>
-                    <p className="card-text h5">{(props.profile.approved)? "Patvirtintas" : "Nepatvirtintas"}</p>
-                    <button className='btn btn-info m-2' onClick={handleApprove}>Patvirtinti</button>
-                    <button className='btn btn-danger m-2' onClick={handleDelete}>Ištrinti</button>
+                    {/* <p className="card-text h5">{(props.profile.approved)? "Patvirtintas" : "Nepatvirtintas"}</p> */}
+                    {/* <button className='btn btn-info m-2' onClick={handleApprove}>Patvirtinti</button> */}
+                    
                 </div>
             </div>
         </div>

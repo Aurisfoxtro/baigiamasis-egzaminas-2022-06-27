@@ -48,7 +48,7 @@ export default () =>{
         .then(resp => {
             if(resp.data.status === 'success'){
                 setTimeout( ()=> {
-                    navigate('/create-profile')
+                    navigate('/login')
                 }, 2000)
             }else{
                 setMessages({message: resp.data.message, status: resp.data.status})

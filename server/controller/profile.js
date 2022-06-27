@@ -53,16 +53,12 @@ const diskStorage = multer.diskStorage({
 
 const profileSchema = (req, res, next) =>{
     const schema = Joi.object({
-        // headline: Joi.string(),
-        // subheadline: Joi.string(),
-        description: Joi.string(),
-        target_sum: Joi.number(),
-        approved: Joi.number(),
-        success: Joi.number()
-        //funded_sum: Joi.number()
-        // hourly_rate: Joi.number().required(),
-        // location: Joi.string(),
-        // UserId: Joi.number().required()
+        name: Joi.string().required(),
+        surname: Joi.string().required(),
+        specialization: Joi.string().required(),
+        service_name: Joi.string().required(),
+        city: Joi.string().required(),
+        likes: Joi.number()
     })
 
     validator(req, next, schema)
@@ -70,14 +66,8 @@ const profileSchema = (req, res, next) =>{
 
 const donationSchema = (req, res, next) =>{
     const schema = Joi.object({
-        // headline: Joi.string(),
-        // subheadline: Joi.string(),
         donator: Joi.string(),
         donation: Joi.number()
-        //funded_sum: Joi.number()
-        // hourly_rate: Joi.number().required(),
-        // location: Joi.string(),
-        // UserId: Joi.number().required()
     })
 
     validator(req, next, schema)

@@ -9,7 +9,9 @@ import ProfileList from './components/profile-list/ProfileList.js'
 import Profile from './components/profile/Profile.js'
 import Header from './components/header/Header.js'
 import Login from './components/login/Login.js'
-import ProfileListAdmin from './components/profile-list-admin/ProfileListAdmin';
+import ServiceCreate from './components/service-create/ServiceCreate.js';
+import ProfileListAdmin from './components/profile-list-admin/ProfileListAdmin.js';
+import ServiceListAdmin from './components/service-list-admin/ServiceListAdmin.js';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
@@ -41,10 +43,12 @@ function App() {
         <Route path="/" element={<ProfileList />}/>
         {show && (<Route path="/login" element={<Login state={handleLoginState}/>}/>)}
         {show && (<Route path="/registration" element={<Registration/>}/>)}
-        <Route path="/create-profile" element={<ProfileCreate />} />
+        {isLoggedIn && (<Route path="/create-profile" element={<ProfileCreate />} />)}
+        {isLoggedIn && (<Route path="/create-service" element={<ServiceCreate />} />)}
         <Route path="/profile/:id" element={<Profile />}/>
         {/* {isLoggedIn && (<Route path="/edit" element={<ProfileEdit />} />)} */}
         {isLoggedIn && (<Route path="/admin-panel" element={<ProfileListAdmin />} />)}
+        {isLoggedIn && (<Route path="/services" element={<ServiceListAdmin />} />)}
       </Routes>
     </Router>
   );
