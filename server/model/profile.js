@@ -3,17 +3,13 @@ import {users} from './users.js'
 
 export const profile = (sequelize) => {
     const schema = {
-        // headline: {type: DataTypes.STRING},
-        // subheadline: {type: DataTypes.STRING},
-        description: {type: DataTypes.STRING, allowNull: false},
-        // hourly_rate: {type: DataTypes.INTEGER, allowNull: false},
+        name: {type: DataTypes.STRING, allowNull: false},
+        surname: {type: DataTypes.STRING, allowNull: false},
+        specialization: {type: DataTypes.STRING, allowNull: false},
         profile_image: {type: DataTypes.STRING, allowNull: false},
-        target_sum: {type: DataTypes.INTEGER, allowNull: false},
-        approved: {type: DataTypes.INTEGER},
-        success: {type: DataTypes.INTEGER}
-        // funded_sum: {type: DataTypes.INTEGER},
-        // funded_history_id: {type: DataTypes.INTEGER}
-        // location: {type: DataTypes.STRING}
+        service_name: {type: DataTypes.STRING, allowNull: false},
+        city: {type: DataTypes.STRING, allowNull: false},
+        likes: {type: DataTypes.INTEGER}
     }
 
     const Profile = sequelize.define('Profile', schema)

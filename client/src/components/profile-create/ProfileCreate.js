@@ -5,20 +5,18 @@ import Alert from 'react-bootstrap/Alert'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 
-const userid = 4 // Statinis userio ID
+// const userid = 4 // Statinis userio ID
 
 export default ()=>{
 
     const [profileForm, setProfileForm] = useState({
-        // headline:'',
-        // subheadline: '',
-        description: '',
+        name: '',
+        surname: '',
+        specialization: '',
         profile_image: '',
-        target_sum: '',
-        approved: 0,
-        success: 0
-        // hourly_rate: 5,
-        // location: ''
+        service_name: '',
+        city: '',
+        likes: 0
     })
 
     const [messages, setMessages] = useState({message: '', status: ''})
@@ -80,24 +78,37 @@ export default ()=>{
     return(
     <Container>
         <div className="profileCreate">
-            <h1>Labdaros idėjos registravimas</h1>
+            <h1>Naujo meistro registravimas</h1>
             {messages.message && (
                 <Alert variant={messages.status}>{messages.message}</Alert>
             )}
             <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label">Labdaringos idėjos pristatymas</label>
-                <textarea className="form-control" name="description" rows="6" value={profileForm.description} onChange={(e)=>handleInputChange(e)}></textarea>
+                <label className="form-label">Meistro vardas</label>
+                {/* <textarea className="form-control" name="description" rows="6" value={profileForm.description} onChange={(e)=>handleInputChange(e)}></textarea> */}
+                <input type="text" name="name" className="form-control" value={profileForm.name} onChange={(e)=>handleInputChange(e)} />
             </div>
             <div className="mb-3">
-                <label className="form-label">Labdaringos idėjos paveikslėlis</label>
+                <label className="form-label">Meistro pavardė</label>
+                <input type="text" name="surname" className="form-control" value={profileForm.surname} onChange={(e)=>handleInputChange(e)} />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Specializacija</label>
+                <input type="text" name="specialization" className="form-control" value={profileForm.specialization} onChange={(e)=>handleInputChange(e)} />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">Meistro nuotrauka</label>
                 <input type="file" className="form-control" name="profile_image" onChange={(e)=>handleFileChange(e)}/>
             </div>
             <div className="mb-3">
-                <label className="form-label">Reikalinga finansavimo suma</label>
-                <input type="number" name="target_sum" className="form-control" min="0" value={profileForm.target_sum} onChange={(e)=>handleInputChange(e)} />
+                <label className="form-label">Serviso pavadinimas</label>
+                <input type="text" name="service_name" className="form-control" value={profileForm.service_name} onChange={(e)=>handleInputChange(e)} />
             </div>
-            <Button type="submit" variant="primary">Kurti profilį</Button>
+            <div className="mb-3">
+                <label className="form-label">Miestas</label>
+                <input type="text" name="city" className="form-control" value={profileForm.city} onChange={(e)=>handleInputChange(e)} />
+            </div>
+            <Button type="submit" variant="primary">Kurti meistro profilį</Button>
             </form>
         </div>
     </Container>
