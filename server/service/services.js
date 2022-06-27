@@ -8,30 +8,14 @@ export const getAll = async (conditions = {}) =>{
     }
 }
 
-// export const getApproved = async () =>{
-//     try{
-//         return await database.Profile.findAll({where:{approved: 1}}, {raw: true})
-//     }catch{
-//         return false
-//     }
-// }
-
 export const getById = async (id) =>{
     try{
         return await database.Services.findByPk(id)
-        // return await database.Profile.findByPk(id, {raw: true})
+     
     }catch{
         return false
     }
 }
-
-// export const getByUserId = async (id) =>{
-//     try{
-//         return await database.Profile.findOne({where:{UserId: id}}, {raw: true})
-//     }catch{
-//         return false
-//     }
-// }
 
 export const exists = async (fields = {}) => {
     try{
@@ -63,17 +47,6 @@ export const insert = async(data) => {
         return false
     }
 }
-
-// export const insertDonation = async(data) => {
-//     try{
-//         const donation = new database.Donations(data)
-//         await donation.save()
-//         // return donation.dataValues.id  //ar tikrai?
-//     }catch(e){
-//         console.log(e)
-//         return false
-//     }
-// }
 
 export const remove = async (id) =>{
     try{

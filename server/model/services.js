@@ -8,13 +8,6 @@ export const services = (sequelize) => {
     }
 
     const Services = sequelize.define('Services', schema)
-    // const Users = users(sequelize)
-
-    // Users.hasOne(Profile, {foreignKey: 'userId'})
-    // Profile.belongsTo(Users)
-
-    // Users.hasOne(Profile)
-    // Profile.belongsTo(Users)
 
     return Services
 }

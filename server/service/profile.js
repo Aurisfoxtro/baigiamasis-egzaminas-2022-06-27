@@ -68,7 +68,7 @@ export const insertDonation = async(data) => {
     try{
         const donation = new database.Donations(data)
         await donation.save()
-        // return donation.dataValues.id  //ar tikrai?
+
     }catch(e){
         console.log(e)
         return false

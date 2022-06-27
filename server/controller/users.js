@@ -42,22 +42,15 @@ Router.post('/login', loginSchema, async (req, res)=>{
         return
     }
 
-    // console.log(config.secret)
     const data = {email: req.body.email, id: user.id}
     const token = jsonwebtoken.sign(data, config.secret, {
         expiresIn: '1h'
     })
-    // console.log(token)
-    // req.session.loggedIn = true
+
     res.cookie('token', token) //perduodami sausainelio vardas ir reiksme
     res.json({message: 'Prisijungimas sėkmingas', status: 'success'})
 })
 
-// Router.get('/', async (req,res)=>{
-//     const password = 'labas'
-//     const hash = '........'
-//     console.log(await bcrypt.hash(password, 10))
-// })
 
 Router.post('/register', registerSchema, async (req, res) =>{
     // console.log(req.body)

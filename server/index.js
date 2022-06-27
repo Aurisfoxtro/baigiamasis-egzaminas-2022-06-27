@@ -8,9 +8,6 @@ import auth from './middleware/authentication.js'
 import {dirname} from 'path'
 import { fileURLToPath } from 'url'
 
-//neveike assert :/
-// import config from "./config.json" assert {type: `json`}
-// console.log(config)
 
 const app = express();
 const __dirname = dirname(fileURLToPath(import.meta.url))
